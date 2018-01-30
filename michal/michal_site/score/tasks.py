@@ -1,12 +1,13 @@
-import requests
+import request
 from michal_site.celery import app
 from .models import User
 
 pattern = 'pkt'
 
-@app.task(name = 'get_page_score')
+@app.task()
 def get_page_score():
     for u in User.objects.all():
+        print("dziala")
         url = 'https://rozwal.to/profile/' + u.name
         response = requests.get(url)
 
@@ -15,4 +16,10 @@ def get_page_score():
         u.score = number[0] if number else 0
         u.save()
 
-app.task.register(get_page_score)
+#@app.on_after_configure.connect
+#def setup_periodic_tasks(sender):
+#    # Calls test('hello') every 10 seconds.
+#    sender.add_periodic_task(10.0, get_page_score.s(), name='add every 10')
+
+# celery -A michal_site.celery beat -S django -l debug
+# celery worker -A michal_site.celery
