@@ -1,4 +1,4 @@
-import request
+import requests
 from michal_site.celery import app
 from .models import User
 
@@ -15,6 +15,8 @@ def get_page_score():
         number = [int(l) for l in str(line).split() if l.isdigit()]
         u.score = number[0] if number else 0
         u.save()
+
+
 
 #@app.on_after_configure.connect
 #def setup_periodic_tasks(sender):

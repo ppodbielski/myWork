@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'score',
-    'django_celery_beat',
 
 ]
 
@@ -129,10 +128,12 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-#CELERY_TASK_QUEUES = 'kolejka'
+CELERY_TIMEZONE = 'Europe/Warsaw'
 
-#CELERYBEAT_SCHEDULER = 'celery.beat:PersistentScheduler'
-
-#CELERY_ENABLE_UTC = False
+CELERYBEAT_SCHEDULE = {
+    'task-test': {
+        'task': 'score.tasks.get_page_score',
+        'schedule': 10.0,
+        'args': ()
+    },
+}
