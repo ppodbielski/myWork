@@ -13,22 +13,22 @@
   <body>
     <div class="container">
       <nav class="navbar sticky-top navbar-light bg-light">
-        <a class="navbar-brand" href="/">Michal Score Page</a>
+        <a class="navbar-brand" href="/">Rozwal to scores</a>
       </nav>
       <header class="mt-4">
-        <h1 class="display-6">
-        Wyniki
-        </h1>
+
       </header>
       <main>
          <div class="card mt-4">
+           {% for user in users %}
           <div class="card-body">
             <h5 class="card-title">User Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Jakis tytul </h6>
+            <h6 class="card-subtitle mb-2 text-muted"> {{ user.name }} </h6>
             <p class="card-text">
-              <strong>Score:</strong> 2323
+              <strong>Score:</strong> {{ user.score }}
             </p>
           </div>
+           {% endfor %}
         </div>
       </main>
     </div>
